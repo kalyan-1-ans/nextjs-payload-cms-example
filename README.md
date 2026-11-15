@@ -27,11 +27,14 @@ You need [nvm](https://github.com/nvm-sh/nvm), pnpm, and a running PostgreSQL da
 
    `DATABASE_URL` is a Postgres connection string. `PAYLOAD_SECRET` is any long random string used to sign sessions.
 
-3. Install dependencies and start the dev server:
+3. Install dependencies, load the sample content, and start the dev server:
 
    ```bash
    pnpm install
+   pnpm seed
    pnpm dev
    ```
+
+   `pnpm seed` runs once. It inserts any sample recommendations that are not already in the database, and fills Home and About when those are empty. Restarting the dev server does not run it again.
 
 4. Open the site at [http://localhost:3000](http://localhost:3000). The Payload admin panel is at [http://localhost:3000/admin](http://localhost:3000/admin). The first visit to the admin panel asks you to create an admin user.
