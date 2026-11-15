@@ -1,67 +1,37 @@
-# Payload Blank Template
+# Small Bites
 
-This template comes configured with the bare minimum to get started on anything you need.
+Small Bites is a demo food blog. It exists to show the difference between **server-side rendering (SSR)** and **incremental static regeneration (ISR)** in Next.js, on a site that is mostly static.
 
-## Quick start
+Recipes and posts change occasionally, not on every request. That makes the blog a useful place to compare the two modes:
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+- **SSR** builds the page on the server for every request. Readers always get the latest content, and the server does that work each time.
+- **ISR** serves a pre-rendered page and rebuilds it in the background after a set interval, or on demand. Most requests stay as fast as a static page, and published content still catches up.
 
-## Quick Start - local setup
+Content is edited in [Payload CMS](https://payloadcms.com) and stored in PostgreSQL.
 
-To spin up this template locally, follow these steps:
+## Local setup
 
-### Clone
+You need [nvm](https://github.com/nvm-sh/nvm), pnpm, and a running PostgreSQL database.
 
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+1. Switch to the Node.js version:
 
-### Development
+   ```bash
+   nvm use
+   ```
 
-1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URL` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+2. Copy the example env file:
 
-3. `pnpm install && pnpm dev` to install dependencies and start the dev server
-4. open `http://localhost:3000` to open the app in your browser
+   ```bash
+   cp .env.example .env
+   ```
 
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
+   `DATABASE_URL` is a Postgres connection string. `PAYLOAD_SECRET` is any long random string used to sign sessions.
 
-#### Docker (Optional)
+3. Install dependencies and start the dev server:
 
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+   ```bash
+   pnpm install
+   pnpm dev
+   ```
 
-To do so, follow these steps:
-
-- Modify the `MONGODB_URL` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URL` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
-
-## How it works
-
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
-
-### Collections
-
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
-
-- #### Users (Authentication)
-
-  Users are auth-enabled collections that have access to the admin panel.
-
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/3.x/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
-
-- #### Media
-
-  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
-
-### Docker
-
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
-
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
-
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
-
-## Questions
-
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+4. Open the site at [http://localhost:3000](http://localhost:3000). The Payload admin panel is at [http://localhost:3000/admin](http://localhost:3000/admin). The first visit to the admin panel asks you to create an admin user.
