@@ -1,6 +1,7 @@
 import { slugField, type CollectionConfig } from 'payload'
 
 import { authenticated } from '../access/authenticated'
+import { revalidateDeletedRecommendation, revalidateRecommendation } from '../hooks/revalidate'
 
 export const Recommendations: CollectionConfig = {
   slug: 'recommendations',
@@ -17,6 +18,10 @@ export const Recommendations: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'meal', 'minutes', 'updatedAt'],
+  },
+  hooks: {
+    afterChange: [revalidateRecommendation],
+    afterDelete: [revalidateDeletedRecommendation],
   },
   defaultSort: 'sortOrder',
   fields: [

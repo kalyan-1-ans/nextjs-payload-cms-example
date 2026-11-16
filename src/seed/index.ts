@@ -73,6 +73,10 @@ const noodles = {
 
 const recommendations = [pasta, sandwich, dal, noodles]
 
+const seedContext = {
+  disableRevalidate: true,
+}
+
 export async function seedContent(payload: Payload) {
   const docs: { id: number; title: string }[] = []
   let createdAny = false
@@ -98,6 +102,7 @@ export async function seedContent(payload: Payload) {
     docs.push(
       await payload.create({
         collection: 'recommendations',
+        context: seedContext,
         data: recommendation,
       }),
     )
@@ -111,6 +116,7 @@ export async function seedContent(payload: Payload) {
 
       await payload.update({
         collection: 'recommendations',
+        context: seedContext,
         id: current.id,
         data: {
           title: current.title,
@@ -125,6 +131,7 @@ export async function seedContent(payload: Payload) {
   if (!home.headline) {
     await payload.updateGlobal({
       slug: 'home',
+      context: seedContext,
       data: {
         eyebrow: 'GOOD FOOD. NO FUSS.',
         headline: 'A few good things to eat.',
@@ -141,6 +148,7 @@ export async function seedContent(payload: Payload) {
   if (!about.headline || aboutStillMentionsTwo) {
     await payload.updateGlobal({
       slug: 'about',
+      context: seedContext,
       data: {
         eyebrow: 'ABOUT SMALL BITES',
         headline: 'Good food. A little less overthinking.',

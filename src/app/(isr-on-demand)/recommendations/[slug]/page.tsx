@@ -16,6 +16,22 @@ type RecommendationPageProps = {
   params: Promise<{ slug: string }>
 }
 
+export async function generateStaticParams() {
+  const payload = await getPayloadClient()
+  const recommendations = await payload.find({
+    collection: 'recommendations',
+    depth: 0,
+    pagination: false,
+    select: {
+      slug: true,
+    },
+  })
+
+  return recommendations.docs.flatMap((recommendation) =>
+    recommendation.slug ? [{ slug: recommendation.slug }] : [],
+  )
+}
+
 const getRecommendation = cache(async (slug: string) => {
   const payload = await getPayloadClient()
   const result = await payload.find({
