@@ -1,13 +1,14 @@
 # Small Bites
 
-Small Bites is a demo food blog. It exists to show the difference between **server-side rendering (SSR)** and **incremental static regeneration (ISR)** in Next.js, on a site that is mostly static.
+Small Bites is a small food blog used as an example of [Payload CMS](https://payloadcms.com) inside a Next.js app. Editors change the content in Payload. The site reads it from PostgreSQL and renders it.
 
-Recipes and posts change occasionally, not on every request. That makes the blog a useful place to compare the two modes:
+The Payload config in `src/payload.config.ts` defines:
 
-- **SSR** builds the page on the server for every request. Readers always get the latest content, and the server does that work each time.
-- **ISR** serves a pre-rendered page and rebuilds it in the background after a set interval, or on demand. Most requests stay as fast as a static page, and published content still catches up.
+- **Users**, an auth collection for the admin panel.
+- **Recommendations**, a collection of recipes with a slug, meal, timing, and a link to the next recipe.
+- **Home** and **About**, globals for the two pages that are not a list of recipes.
 
-Content is edited in [Payload CMS](https://payloadcms.com) and stored in PostgreSQL.
+Public reads are open. Creating, updating, and deleting content requires a logged-in admin user.
 
 ## Local setup
 
